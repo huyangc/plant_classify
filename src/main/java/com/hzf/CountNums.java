@@ -17,7 +17,7 @@ public class CountNums implements JDBCVariable{
         Class.forName(DRIVER);
         Connection conn = DriverManager.getConnection(URL,USER,PASSWD);
         Statement stmt = conn.createStatement();
-        String classBasic = "zhong";
+        String classBasic = "ke";
         String sql = "select "+classBasic+" from imagepath_aft1";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){

@@ -9,4 +9,5 @@ public interface JDBCVariable {
     public static final String USER = "root";
     public static final String PASSWD = "123";
     public static final String BASICTABLE = "imagepath";
+    public static final String PROCESSEDTABLE = "imagepath_aft1";
 }
