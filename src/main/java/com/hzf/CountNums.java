@@ -1,5 +1,7 @@
 package com.hzf;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,7 +17,8 @@ public class CountNums implements JDBCVariable{
         Class.forName(DRIVER);
         Connection conn = DriverManager.getConnection(URL,USER,PASSWD);
         Statement stmt = conn.createStatement();
-        String sql = "select zhong from imagepath_aft1";
+        String classBasic = "zhong";
+        String sql = "select "+classBasic+" from imagepath_aft1";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
             String key = rs.getString(1);
@@ -30,14 +33,18 @@ public class CountNums implements JDBCVariable{
         CountNums.ValueComparator vc=new ValueComparator();
         Collections.sort(list,vc);
         int nums = 0;
+        BufferedWriter bw = new BufferedWriter(new FileWriter(classBasic));
         for(Iterator<Map.Entry<String,Integer>> it=list.iterator();it.hasNext();)
         {
             Map.Entry<String,Integer> count = it.next();
             if(count.getValue()>40){
                 ++nums;
-                System.out.println(count.getKey()+" : "+count.getValue());
+                String content = count.getKey()+":"+count.getValue();
+                System.out.println(content);
+                bw.write(content+'\n');
             }
         }
+        bw.close();
         System.out.println(nums);
     }
     private static class ValueComparator implements Comparator<Map.Entry<String,Integer>>
